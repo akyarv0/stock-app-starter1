@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 
@@ -12,9 +13,11 @@ import {
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+
 const useApiRequest = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {token} = useSelector((state) => state.auth)
   const login = async (userData) => {
     //   const BASE_URL = "https://10129.fullstack.clarusway.com/";
 
@@ -54,7 +57,15 @@ const useApiRequest = () => {
   };
   const logout = async () => { dispatch(fetchStart());
     try {
-      await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/logout`);
+      await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/logout`, {
+        headers: {
+          headers: { Authorization: `Token ${token}` }
+        },
+   
+        
+
+        
+      });
       dispatch(logoutSuccess());
       toastSuccessNotify("Logout işlemi başarılı");
       navigate("/");
