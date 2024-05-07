@@ -13,11 +13,10 @@ import {
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-
 const useApiRequest = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {token} = useSelector((state) => state.auth)
+  const { token } = useSelector((state) => state.auth);
   const login = async (userData) => {
     //   const BASE_URL = "https://10129.fullstack.clarusway.com/";
 
@@ -55,16 +54,13 @@ const useApiRequest = () => {
       console.log(error);
     }
   };
-  const logout = async () => { dispatch(fetchStart());
+  const logout = async () => {
+    dispatch(fetchStart());
     try {
       await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/logout`, {
         headers: {
-          headers: { Authorization: `Token ${token}` }
+          Authorization: `Token ${token}`,
         },
-   
-        
-
-        
       });
       dispatch(logoutSuccess());
       toastSuccessNotify("Logout işlemi başarılı");
@@ -73,7 +69,8 @@ const useApiRequest = () => {
       dispatch(fetchFail());
       toastErrorNotify("Logout işlemi başarısız oldu");
       console.log(error);
-    }};
+    }
+  };
   return { login, register, logout, fetchStart, fetchFail };
 };
 

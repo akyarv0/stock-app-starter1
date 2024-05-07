@@ -5,10 +5,14 @@ import Register from "../pages/Register";
 import PrivateRouter from "./PrivateRouter";
 import Dashboard from "../pages/Dashboard";
 
+import MenuListComp from "../companents/MenuListComp";
+
 const AppRouter = () => {
-  return (
+  return (<>
+
     <Router>
       <Routes>
+  
         <Route path="/" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="stock" element={<PrivateRouter />}>
@@ -16,6 +20,7 @@ const AppRouter = () => {
         </Route>
       </Routes>
     </Router>
+    </>
   );
 };
 
