@@ -12,10 +12,13 @@ import {
 } from "../features/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import useAxios from "./useAxios";
+
 
 const useApiRequest = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {axiosToken, axiosPublic} = useAxios();
   const { token } = useSelector((state) => state.auth);
   const login = async (userData) => {
     //   const BASE_URL = "https://10129.fullstack.clarusway.com/";
@@ -38,6 +41,7 @@ const useApiRequest = () => {
   };
   const register = async (userData) => {
     dispatch(fetchStart());
+
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/users`,
@@ -57,14 +61,21 @@ const useApiRequest = () => {
   const logout = async () => {
     dispatch(fetchStart());
     try {
-      await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/logout`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      });
-      dispatch(logoutSuccess());
-      toastSuccessNotify("Logout işlemi başarılı");
-      navigate("/");
+      // await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/logout`, {
+      //   headers: {
+      //     Authorization: `Token ${token}`,
+      //   },
+      // });
+
+
+      // dispatch(logoutSuccess());
+      // toastSuccessNotify("Logout işlemi başarılı");
+      // navigate("/");
+
+      await axiosToken.get('/auth/logout')
+
+
+
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify("Logout işlemi başarısız oldu");

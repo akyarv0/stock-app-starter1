@@ -7,8 +7,13 @@ import Dashboard from "../pages/Dashboard";
 
 import Home from "../pages/Home";
 import Sales from "../pages/Sales";
+import Firms from "../pages/Firms";
+import Brands from "../pages/Brands";
+import Products from "../pages/Products";
+import Purchases from "../pages/Purchases";
 
-import MenuListComp from "../companents/MenuListComp";
+
+
 
 const AppRouter = () => {
   return (
@@ -19,8 +24,12 @@ const AppRouter = () => {
           <Route path="register" element={<Register />} />
           <Route path="stock" element={<PrivateRouter />}>
             <Route path="" element={<Dashboard />}>
-              <Route index element={<Home />} />
-              <Route path="sales" element={<Sales />} />
+            <Route index element={<Home />} />
+            <Route path="sales" element={<Sales />} />
+            <Route path="firms" element={<Firms />} />
+            <Route path="brands" element={<Brands />} />
+            <Route path="products" element={<Products />} />
+            <Route path="purchases" element={<Purchases />} />
             </Route>
           </Route>
         </Routes>
