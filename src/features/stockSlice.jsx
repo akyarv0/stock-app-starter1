@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  //burada yazan statelere bir çok yerde ihtiyacımız olduyğu için global state e hepsini atıyoruz.
   purchases: [],
   sales: [],
   firms: [],
@@ -9,14 +10,14 @@ const initialState = {
   categories: [],
   loading: false,
   error: false,
-}
+};
 
 const stockSlice = createSlice({
   name: "stock",
   initialState,
   reducers: {
     fetchStart: (state) => {
-      state.loading = true
+      state.loading = true;
     },
     // getFirmsSuccess: (state, { payload }) => {
     //   state.loading = false
@@ -34,15 +35,15 @@ const stockSlice = createSlice({
     // },
 
     getStockSuccess: (state, { payload: { path, stockData } }) => {
-      state.loading = false
-      state[path] = stockData
+      state.loading = false; //destr yaptık.
+      state[path] = stockData;
     },
     fetchFail: (state) => {
-      state.loading = false
-      state.error = true
+      state.loading = false;
+      state.error = true;
     },
   },
-})
+});
 
 export const {
   fetchStart,
@@ -50,6 +51,6 @@ export const {
   getSalesSuccess,
   getStockSuccess,
   fetchFail,
-} = stockSlice.actions
+} = stockSlice.actions;
 
-export default stockSlice.reducer
+export default stockSlice.reducer;

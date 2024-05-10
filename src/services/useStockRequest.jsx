@@ -27,7 +27,7 @@ const useStockRequest = () => {
   //   dispatch(fetchStart())
   //   try {
   //     const { data } = await axiosToken("/sales")
-  //     dispatch(getSalesSuccess(data.data))
+  //     dispatch(getSalesSuccess(data.data)) // data.data yazmamızın sebebi ilk data süslü parantez ile yazarak axiosdan gelen data destr yapıyoruz. ikincisi apiden gelenfirma bilgilerinin olduğu data. 
   //   } catch (error) {
   //     dispatch(fetchFail())
   //     console.log(error)
@@ -47,7 +47,7 @@ const useStockRequest = () => {
   }
 
   const deleteStock = async (path = "firms", id) => {
-    dispatch(fetchStart())
+    dispatch(fetchStart()) //? path="firms" neden yapıldı anlamadım.
     try {
       await axiosToken.delete(`/${path}/${id}`)
       getStock(path)

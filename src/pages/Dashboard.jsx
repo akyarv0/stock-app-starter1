@@ -22,9 +22,8 @@ function Dashboard(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [isClosing, setIsClosing] = React.useState(false)
 
-  const { user } = useSelector((state) => state.auth)
-  const { logout } = useApiRequest()
-
+  const { user } = useSelector((state) => state.auth) // user ı auth slce dan çekiyoruz. logout düşmesinin login veya register olduğunda görünmesini yoksa görünmemesini sağlayacak durumu aşağıda logout butonunda yazdık.
+  const { logout } = useApiRequest()//! ihtiyacımız olan tüm fonskiyonları bu şekilde çekerek kullanabiliriz. önce yukarda import ediyoruz.
   const handleDrawerClose = () => {
     setIsClosing(true)
     setMobileOpen(false)
