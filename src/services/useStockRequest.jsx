@@ -59,17 +59,17 @@ const useStockRequest = () => {
   };
 
   const postStock = async (path = "firms", info) => {
-    dispatch(fetchStart()); //? path="firms" neden yapıldı anlamadım.
+    dispatch(fetchStart())
     try {
-      await axiosToken.post(`/${path}/`);
-      getStock(path);
-      toastSuccessNotify("Firm Added");
+      await axiosToken.post(`/${path}/`, info)
+      getStock(path)
+      toastSuccessNotify(`${path} basariliyla eklenmiştir.`)
     } catch (error) {
-      dispatch(fetchFail());
-      toastErrorNotify("Firm Not Added");
-      console.log(error);
+      dispatch(fetchFail())
+      toastErrorNotify(`${path} eklenememiştir.`)
+      console.log(error)
     }
-  };
+  }
 
   // return { getFirms, getSales }
 

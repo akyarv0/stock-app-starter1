@@ -22,6 +22,7 @@ const style = {
 export default function FirmModal({ open, handleClose }) {
 
 const [info, setInfo] = useState({
+
   name: "",
   phone: "",
   address: "",
@@ -31,24 +32,21 @@ const [info, setInfo] = useState({
 const { postStock } = useStockRequest();
 
 const handleChange = (e) => {
-  setInfo({ ...info, [e.target.name]: e.target.value });
-  postStock("firms", info);
-  handleClose();
-  setInfo({
-    name: "",
-    phone: "",
-    address: "",
-    image: "",
-  })
-};
+  setInfo({ ...info, [e.target.name]: e.target.value })
+}
 
 console.log(info);
 
 
 const handleSubmit = (e) => {
-  e.preventDefault();
-  
-};
+  e.preventDefault()
+
+  postStock("firms", info)
+
+
+  //? modal ı kapıtıyoruz
+  handleClose()
+}
  
   return (
     <div>
