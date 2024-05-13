@@ -31,7 +31,12 @@ const Sales = () => {
 
   {sales.map((sale) => (
     <div>
-    {}
+    {
+
+
+
+      
+    }
     </div>
   ))}
   
