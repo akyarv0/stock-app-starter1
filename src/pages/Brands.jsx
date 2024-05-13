@@ -7,8 +7,25 @@ import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import Grid from "@mui/material/Grid"
 import BrandCard from "../components/BrandCard"
+import BrandModal from '../components/BrandModal'
+import { useState } from "react";
+
 
 const Brands = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    setInfo({ name: "", phone: "", address: "", image: "" });
+  };
+  const [info, setInfo] = useState({
+    name: "",
+    phone: "",
+    address: "",
+    image: "",
+  });
+
+
 
 const { getStock } = useStockRequest()
 const { brands } = useSelector((state) => state.stock)
@@ -22,12 +39,17 @@ useEffect(() => {
 Brands
     </Typography>
 
-    <Button variant="contained">New Brand</Button>
+    <Button variant="contained" onClick={handleOpen}>New Brand</Button>
+
+    <BrandModal   open={open}
+    handleClose={handleClose}
+    info={info}
+    setInfo={setInfo} />
 
     <Grid container gap={2} mt={3} justifyContent={"center"}>
       {brands.map((brand) => (
         <Grid item key={brand._id}>
-          <BrandCard brand={brand} />
+          <BrandCard brand={brand} handleOpen={handleOpen} setInfo={setInfo}/>
         </Grid>
       ))}
     </Grid>

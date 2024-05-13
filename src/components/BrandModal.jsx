@@ -8,39 +8,20 @@ import { useState, useEffect } from "react";
 import useStockRequest from "../services/useStockRequest";
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+const BrandModal = ( { open, handleClose, info, setInfo }) => {
+const {postBrand, putBrand} = useStockRequest()
 
-export default function FirmModal({ open, handleClose, info, setInfo }) {
-  // const [info, setInfo] = useState({
-
-  //   name: "",
-  //   phone: "",
-  //   address: "",
-  //   image: "",
-  // });
-
-  // useEffect(() => {
-  //   setInfo({
-  //     name: "",
-  //     phone: "",
-  //     address: "",
-  //     image: "",
-  //   })
-
-  // }, [open])
-
-  const { postStock, putStock } = useStockRequest();
-
-  const handleChange = (e) => {
+const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
 
@@ -49,16 +30,16 @@ export default function FirmModal({ open, handleClose, info, setInfo }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (info._id) {
-      putStock("firms", info);
-    } else {
-      postStock("firms", info);
-    }
+   postBrand(info)
 
     //? modal ı kapıtıyoruz
     handleClose();
   };
 
+
+
+
+    
   return (
     <div>
       <Modal
@@ -111,12 +92,14 @@ export default function FirmModal({ open, handleClose, info, setInfo }) {
             />
 
             <Button type="submit" variant="contained" >
-            {info._id ? "UPDATE" : "ADD FIRM"}
+            {info._id ? "UPDATE" : "ADD BRAND"}
 
             </Button>
           </Box>
         </Box>
       </Modal>
     </div>
-  );
+  )
 }
+
+export default BrandModal

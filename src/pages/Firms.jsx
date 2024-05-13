@@ -1,13 +1,13 @@
-import { useEffect } from "react"
+import { useEffect } from "react";
 // import useAxios from "../services/useAxios"
-import useStockRequest from "../services/useStockRequest"
-import { useSelector } from "react-redux"
-import Typography from "@mui/material/Typography"
-import Button from "@mui/material/Button"
-import Grid from "@mui/material/Grid"
-import FirmCard from "../components/FirmCard"
-import FirmModal from "../components/FirmModal"
-import { useState } from "react"
+import useStockRequest from "../services/useStockRequest";
+import { useSelector } from "react-redux";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import FirmCard from "../components/FirmCard";
+import FirmModal from "../components/FirmModal";
+import { useState } from "react";
 
 // export const getFirms = async () => {
 //   try {
@@ -19,22 +19,30 @@ import { useState } from "react"
 // }
 
 const Firms = () => {
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setInfo({ name: "", phone: "", address: "", image: "" });
+  };
+  const [info, setInfo] = useState({
+    name: "",
+    phone: "",
+    address: "",
+    image: "",
+  });
 
   // const { axiosToken } = useAxios()
   // const { getFirms, getSales } = useStockRequest()
-  const { getStock } = useStockRequest()
-  const { firms } = useSelector((state) => state.stock)
+  const { getStock } = useStockRequest();
+  const { firms } = useSelector((state) => state.stock);
 
   useEffect(() => {
     // getFirms()
     // getSales()
     // getStock("sales")
-    getStock("firms")
-  }, [])
+    getStock("firms");
+  }, []);
 
   return (
     <div>
@@ -42,19 +50,26 @@ const Firms = () => {
         Firms
       </Typography>
 
-      <Button variant="contained" onClick={handleOpen}>New Firm</Button>
+      <Button variant="contained" onClick={handleOpen}>
+        New Firm
+      </Button>
 
-      <FirmModal open={open} handleClose={handleClose} />
+      <FirmModal
+        open={open}
+        handleClose={handleClose}
+        info={info}
+        setInfo={setInfo}
+      />
 
       <Grid container gap={2} mt={3} justifyContent={"center"}>
         {firms.map((firm) => (
           <Grid item key={firm._id}>
-            <FirmCard firm={firm} />
+            <FirmCard firm={firm} handleOpen={handleOpen} setInfo={setInfo} />
           </Grid>
         ))}
       </Grid>
     </div>
-  )
-}
+  );
+};
 
-export default Firms
+export default Firms;

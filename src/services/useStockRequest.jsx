@@ -71,9 +71,50 @@ const useStockRequest = () => {
     }
   }
 
+  const putStock = async (path = "firms", info) => {
+    dispatch(fetchStart())
+    try {
+      await axiosToken.put(`/${path}/${info._id}`, info)
+      getStock(path)
+      toastSuccessNotify(`${path} basariliyla guncellenmiştir.`)
+    } catch (error) {
+      dispatch(fetchFail())
+      toastErrorNotify(`${path} guncellenememiştir.`)
+      console.log(error)
+    }
+  }
+
+  const postBrand = async (info) => {
+    dispatch(fetchStart())
+    try {
+      await axiosToken.post(`/brands/`, info)
+      getStock("brands")
+      toastSuccessNotify("Brand basariliyla eklenmiştir.")
+    } catch (error) {
+      dispatch(fetchFail())
+      toastErrorNotify("Brand eklenememiştir.")
+      console.log(error)
+    }
+  }
+
+  const putBrand = async (info) => {
+    dispatch(fetchStart())
+    try {
+      await axiosToken.put(`/brands/${info._id}`, info)
+      getStock("brands")
+      toastSuccessNotify("Brand basariliyla guncellenmiştir.")
+    } catch (error) {
+      dispatch(fetchFail())
+      toastErrorNotify("Brand guncellenememiştir.")
+      console.log(error)
+    }
+  }
+
+
+
   // return { getFirms, getSales }
 
-  return { getStock, deleteStock , postStock};
+  return { getStock, deleteStock , postStock, putStock, postBrand , putBrand};
 };
 
 export default useStockRequest;
