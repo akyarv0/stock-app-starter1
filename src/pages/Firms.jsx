@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import Grid from "@mui/material/Grid"
 import FirmCard from "../components/FirmCard"
+import FirmModal from "../components/FirmModal"
+import { useState } from "react"
 
 // export const getFirms = async () => {
 //   try {
@@ -17,6 +19,11 @@ import FirmCard from "../components/FirmCard"
 // }
 
 const Firms = () => {
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   // const { axiosToken } = useAxios()
   // const { getFirms, getSales } = useStockRequest()
   const { getStock } = useStockRequest()
@@ -35,7 +42,9 @@ const Firms = () => {
         Firms
       </Typography>
 
-      <Button variant="contained">New Firm</Button>
+      <Button variant="contained" onClick={handleOpen}>New Firm</Button>
+
+      <FirmModal open={open} handleClose={handleClose} />
 
       <Grid container gap={2} mt={3} justifyContent={"center"}>
         {firms.map((firm) => (
