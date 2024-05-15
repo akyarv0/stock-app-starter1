@@ -1,40 +1,42 @@
-import { useEffect, useState } from "react"
-import useStockRequest from "../services/useStockRequest"
-import { useSelector } from "react-redux"
-import Typography from "@mui/material/Typography"
-import Button from "@mui/material/Button"
-import Grid from "@mui/material/Grid"
-import ProductModal from "../components/ProductModal"
-import ProductTable from "../components/ProductTable"
+import { useEffect, useState } from "react";
+import useStockRequest from "../services/useStockRequest";
+import { useSelector } from "react-redux";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import ProductModal from "../components/ProductModal";
+import ProductTable from "../components/ProductTable";
+import { initial } from "lodash";
 
 const Firms = () => {
-  const { getStock } = useStockRequest()
-  const { firms } = useSelector((state) => state.stock)
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
+  const { getStock } = useStockRequest();
+  const { firms } = useSelector((state) => state.stock);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
 
-  const [info, setInfo] = useState({
+  const initialState = {
+    categoryId: "",
+    brandId: "", // firmId: "",
     name: "",
-    phone: "",
-    image: "",
-    address: "",
-  })
+  };
+
+  const [info, setInfo] = useState(initialState);
 
   const handleClose = () => {
-    setOpen(false)
+    setOpen(false);
     setInfo({
       name: "",
       phone: "",
       image: "",
       address: "",
-    })
-  }
+    });
+  };
 
   useEffect(() => {
-    getStock("products")
-    getStock("categories")
-    getStock("brands")
-  }, [])
+    getStock("products");
+    getStock("categories");
+    getStock("brands");
+  }, []);
 
   return (
     <div>
@@ -55,7 +57,7 @@ const Firms = () => {
 
       <ProductTable />
     </div>
-  )
-}
+  );
+};
 
-export default Firms
+export default Firms;

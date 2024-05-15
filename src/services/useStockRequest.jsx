@@ -52,8 +52,10 @@ const useStockRequest = () => {
     try {
       await axiosToken.delete(`/${path}/${id}`)
       getStock(path)
+      toastSuccessNotify(`${path} silindi.`)
     } catch (error) {
       dispatch(fetchFail())
+      toastErrorNotify(`${path} silinemedi.`)
       console.log(error)
     }
   }
