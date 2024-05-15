@@ -13,6 +13,7 @@ import Select from '@mui/material/Select';
 import { modalStyle } from "../styles/globalStyles";
 
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 
 
@@ -34,6 +35,13 @@ export default function ProductModal({ handleClose, open, info, setInfo }) {
     //? modal ı kapıtıyoruz
     handleClose();
   };
+  useEffect(() => {
+    setInfo({
+      categoryId: "",
+      brandId: "",
+      name: "",
+    });
+  }, [open]);
 
   console.log(info);
   return (
@@ -97,6 +105,7 @@ export default function ProductModal({ handleClose, open, info, setInfo }) {
           id="name"
           type="text"
           variant="outlined"
+          value={info.name}
 
           onChange={handleChange}
           required
