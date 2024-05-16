@@ -1,42 +1,35 @@
-import { useEffect, useState } from "react";
-import useStockRequest from "../services/useStockRequest";
-import { useSelector } from "react-redux";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
-import ProductModal from "../components/ProductModal";
-import ProductTable from "../components/ProductTable";
-import { initial } from "lodash";
+import { useEffect, useState } from "react"
+import useStockRequest from "../services/useStockRequest"
+import Typography from "@mui/material/Typography"
+import Button from "@mui/material/Button"
+import ProductModal from "../components/ProductModal"
+import ProductTable from "../components/ProductTable"
+import { useSelector } from "react-redux"
+import TableSkeleton, {
+  ErrorMessage,
+  NoDataMessage,
+} from "../components/DataFetchMessages"
 
-const Firms = () => {
-  const { getStock } = useStockRequest();
-  const { firms } = useSelector((state) => state.stock);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+const Products = () => {
+  const { getStock } = useStockRequest()
+  const { error, loading } = useSelector((state) => state.stock)
+  const { products } = useSelector((state) => state.stock)
 
-  const initialState = {
-    categoryId: "",
-    brandId: "", // firmId: "",
-    name: "",
-  };
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
 
-  const [info, setInfo] = useState(initialState);
+  const initialState = { categoryId: "", brandId: "", name: "" }
+  const [info, setInfo] = useState(initialState)
 
   const handleClose = () => {
-    setOpen(false);
-    setInfo({
-      name: "",
-      phone: "",
-      image: "",
-      address: "",
-    });
-  };
-
+    setOpen(false)
+    setInfo(initialState)
+  }
   useEffect(() => {
-    getStock("products");
-    getStock("categories");
-    getStock("brands");
-  }, []);
+    getStock("products")
+    getStock("categories")
+    getStock("brands")
+  }, [])
 
   return (
     <div>
@@ -44,9 +37,14 @@ const Firms = () => {
         Products
       </Typography>
 
-      <Button variant="contained" onClick={handleOpen} sx={{ mb: 3 }}>
+      <Button variant="contained" onClick={handleOpen} disabled={error}>
         New Product
       </Button>
+
+      {loading && <TableSkeleton />}
+      {error && <ErrorMessage />}
+      {!loading && products.length > 0 && <ProductTable />}
+      {!loading && !products.length && <NoDataMessage />}
 
       <ProductModal
         handleClose={handleClose}
@@ -54,10 +52,8 @@ const Firms = () => {
         info={info}
         setInfo={setInfo}
       />
-
-      <ProductTable />
     </div>
-  );
-};
+  )
+}
 
-export default Firms;
+export default Products
