@@ -10,15 +10,15 @@ import {
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import useAxios from "./useAxios"
-//!burası önemli
-//?Custom hook 
+
+//?Custom hook
 //? Eger uygulamanın her yerinde kullanmak için bazı fonksiyonlara ihtyaç varsa  ve bu fonksiyonlar içerisinde custom hook'ların ( useSelector, useDispatch,useNavigate etc.) kullanılması gerekiyorsa o Zaman çözüm Bu dosyayı custom hook'a çevirmektir.
 
 const useApiRequest = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { axiosToken, axiosPublic } = useAxios()
-  // const { token } = useSelector((state) => state.auth) 
+  // const { token } = useSelector((state) => state.auth)
   const login = async (userData) => {
     //   const BASE_URL = "https://10001.fullstack.clarusway.com"
 
@@ -57,7 +57,7 @@ const useApiRequest = () => {
     dispatch(fetchStart())
     try {
       // await axios(`${process.env.REACT_APP_BASE_URL}/auth/logout`, {
-      //   headers: { Authorization: `Token ${token}` }, // token bilgisini headers la ekliyoruz. Backenden token bilgisiyle birlikte çıkış yapıyoruyoruz. yani bne şu kişiyim çıkış yaptım diyoruz. token da backend siliniyor. 
+      //   headers: { Authorization: `Token ${token}` },
       // })
       await axiosToken.get("/auth/logout")
       dispatch(logoutSuccess())

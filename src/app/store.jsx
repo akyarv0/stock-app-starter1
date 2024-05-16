@@ -24,7 +24,7 @@ const persistedReducer = persistReducer(persistConfig, authReducer)
 
 const store = configureStore({
   reducer: {
-    auth: persistedReducer, // burada hangi reducerları kullancaksaksak persistedReducera ile birlesştiirip ekliyoruz.
+    auth: persistedReducer,
     stock: stockReducer,
   },
   middleware: (getDefaultMiddleware) =>
