@@ -10,7 +10,9 @@ import TextField from "@mui/material/TextField"
 import { Button } from "@mui/material"
 import { Formik, Form } from "formik"
 import { object, string } from "yup"
-// import { login } from "../services/useApiRequest"
+import { red } from "@mui/material/colors"
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import { IconButton } from "@mui/material"
 import useApiRequest from "../services/useApiRequest"
 
 const Login = () => {
@@ -32,6 +34,10 @@ const Login = () => {
         "Şifre en az bir özel karakter(@$!%*?&) içermelidir."
       ),
   })
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text)
+  }
 
   return (
     <Container maxWidth="lg">
@@ -74,12 +80,6 @@ const Login = () => {
             initialValues={{ email: "", password: "" }}
             validationSchema={loginSchema}
             onSubmit={(values, actions) => {
-              //TODO
-              //? POST (Login)
-              //? Toastify
-              //? Global state güncellenmesi
-              //? form resetleme
-              //? navigate
               login(values)
               actions.resetForm()
               actions.setSubmitting(false) //? isSubmitting
@@ -137,6 +137,22 @@ const Login = () => {
         </Grid>
 
         <Grid item xs={10} sm={7} md={6}>
+          <Box sx={{ textAlign: "center", mt: 2 }}>
+            <Typography sx={{ color: red[500], display: 'inline' }}>
+              Testing email: t@gmail.com
+            </Typography>
+            <IconButton onClick={() => copyToClipboard('t@gmail.com')} size="small">
+              <ContentCopyIcon fontSize="small" />
+            </IconButton>
+          </Box>
+          <Box sx={{ textAlign: "center", mt: 2 }}>
+            <Typography sx={{ color: red[500], display: 'inline' }}>
+              Testing password: Tt123456!
+            </Typography>
+            <IconButton onClick={() => copyToClipboard('Tt123456!')} size="small">
+              <ContentCopyIcon fontSize="small" />
+            </IconButton>
+          </Box>
           <Container>
             <img src={image} alt="img" />
           </Container>
