@@ -1,14 +1,14 @@
-import Box from "@mui/material/Box"
-import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid"
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
-import useStockRequest from "../services/useStockRequest"
-import { useSelector } from "react-redux"
+import Box from "@mui/material/Box";
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import useStockRequest from "../services/useStockRequest";
+import { useSelector } from "react-redux";
 
 export default function ProductTable() {
-  const { deleteStock } = useStockRequest()
-  const { products } = useSelector((state) => state.stock)
+  const { deleteStock } = useStockRequest();
+  const { products } = useSelector((state) => state.stock);
 
-  const getRowId = (row) => row._id
+  const getRowId = (row) => row._id;
 
   const columns = [
     { field: "_id", headerName: "#", minWidth: 150, flex: 1.4 },
@@ -61,10 +61,10 @@ export default function ProductTable() {
             onClick={() => deleteStock("products", props.id)}
             label="Delete"
           />,
-        ]
+        ];
       },
     },
-  ]
+  ];
 
   return (
     <Box sx={{ width: "100%", mt: 3 }}>
@@ -79,5 +79,5 @@ export default function ProductTable() {
         slots={{ toolbar: GridToolbar }}
       />
     </Box>
-  )
+  );
 }
