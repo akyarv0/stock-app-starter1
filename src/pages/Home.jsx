@@ -9,12 +9,12 @@ const Home = () => {
   useEffect(() => {
     getStock("sales")
     getStock("purchases")
-  }, [])
+  })
 
   return (
     <div>
       <KPICards />
-  { /*   <Charts /> */ }
+  {    <Charts /> }
     </div>
   )
 }
